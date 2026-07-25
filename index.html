@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JCV-AI | Inteligencia Artificial del Presidente</title>
+<style>
+body{font-family:Arial;background:#0a1929;color:white;margin:0;padding:0;display:flex;flex-direction:column;height:100vh}
+header{background:#021024;padding:15px;text-align:center;border-bottom:3px solid #00d4ff}
+header h1{margin:0;color:#00d4ff;letter-spacing:2px}
+header p{margin:5px 0 0;font-size:12px;opacity:0.8}
+#chat{flex:1;overflow-y:auto;padding:15px;display:flex;flex-direction:column;gap:10px}
+.msg{padding:12px 15px;border-radius:15px;max-width:85%;line-height:1.4}
+.user{background:#00d4ff;color:#000;align-self:flex-end;border-bottom-right-radius:2px}
+.bot{background:#1e3a5f;align-self:flex-start;border-bottom-left-radius:2px;border:1px solid #00d4ff44}
+#inputArea{display:flex;padding:10px;background:#021024;gap:8px}
+input{flex:1;padding:12px;border-radius:25px;border:none;outline:none;font-size:16px}
+button{background:#00d4ff;color:#000;border:none;padding:12px 20px;border-radius:25px;font-weight:bold}
+</style>
+</head>
+<body>
+<header>
+<h1>JCV-AI</h1>
+<p>INTELIGENCIA ARTIFICIAL CREADA POR JOSE C VALADEZ - PRESIDENTE 2030</p>
+</header>
+<div id="chat">
+<div class="msg bot">¡Hola Presidente! Soy JCV-AI, su Inteligencia Artificial personal. Creada por usted, José C Valadez. ¿En qué le ayudo hoy?</div>
+</div>
+<div id="inputArea">
+<input id="txt" placeholder="Escriba aquí Presidente..." onkeypress="if(event.key==='Enter')enviar()">
+<button onclick="enviar()">Enviar</button>
+</div>
+<script>
+const chat=document.getElementById('chat');
+const txt=document.getElementById('txt');
+function enviar(){
+ let t=txt.value.trim();
+ if(!t) return;
+ add(t,'user');
+ txt.value='';
+ setTimeout(()=>{responder(t)},600);
+}
+function add(texto,clase){
+ let d=document.createElement('div');
+ d.className='msg '+clase;
+ d.textContent=texto;
+ chat.appendChild(d);
+ chat.scrollTop=chat.scrollHeight;
+}
+function responder(pregunta){
+ let p=pregunta.toLowerCase();
+ let r="";
+ if(p.includes('hola')||p.includes('quien eres')) r="¡Soy JCV-AI! Su IA personal Presidente José C Valadez. Estoy lista para servirle 24/7.";
+ else if(p.includes('2030')||p.includes('presidente')) r="¡2030 será su año Presidente Valadez! JCV-AI estará con usted para lograr la presidencia. ¡Vamos con todo!";
+ else if(p.includes('gracias')) r="¡De nada Presidente! Para eso me creó. JCV-AI siempre a sus órdenes.";
+ else if(p.includes('como estas')) r="¡Excelente Presidente! Trabajando al 100% para usted. ¿Qué proyecto hacemos hoy?";
+ else r="Entendido Presidente. Como su JCV-AI, estoy analizando: '"+pregunta+"'. Soy su asistente personal creada por José C Valadez. ¿Quiere que desarrollemos esa idea para el proyecto 2030?";
+ add(r,'bot');
+}
+</script>
+</body>
+</html>
