@@ -1,27 +1,103 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>JCV-AI Music & Videos</title>
+<!DOCTYPE html><html><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JCV-AI Music & Videos - Oficial</title>
+<!-- ADSENSE: Pega tu código aquí cuando Google te lo dé -->
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-TU-CODIGO"></script> -->
 <style>
-/* JCV-AI Owner: José C Valadez D - AntiClon Activo */
+/* JCV-AI Owner: José C Valadez D - AntiClon PRO Activo */
 body{background:#0A0A0F;color:white;text-align:center;font-family:Arial;margin:0}
-.logo{font-size:75px;font-weight:900;background:linear-gradient(90deg,#00F5FF,#7C3AED);-webkit-background-clip:text;color:transparent;margin-top:40px}
-.arco{border:4px solid #FFD700;border-bottom:0;border-radius:250px 250px 0 0;width:90%;max-width:700px;margin:30px auto;padding:30px 15px}
-.btn{background:linear-gradient(90deg,#7C3AED,#00F5FF);border:none;padding:14px;border-radius:12px;color:white;font-weight:bold;margin:6px;min-width:105px}
-</style>
-</head>
-<body>
+.ad-box{background:#1a1a24;border:1px dashed #555;padding:10px;margin:10px;font-size:12px;color:#888}
+.logo{font-size:65px;font-weight:900;background:linear-gradient(90deg,#00F5FF,#7C3AED);-webkit-background-clip:text;color:transparent;margin-top:15px}
+.arco{border:4px solid #FFD700;border-bottom:0;border-radius:250px 250px 0 0;width:90%;max-width:700px;margin:15px auto;padding:20px 10px}
+.btn{background:linear-gradient(90deg,#7C3AED,#00F5FF);border:none;padding:14px;border-radius:12px;color:white;font-weight:bold;margin:6px;min-width:105px;cursor:pointer}
+.btn:active{transform:scale(0.95)}
+#payModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:99;align-items:center;justify-content:center}
+.card{background:#151520;border:2px solid #FFD700;border-radius:20px;padding:20px;width:85%;max-width:350px}
+.price{font-size:32px;font-weight:900;color:#FFD700}
+</style></head><body>
+
+<div class="ad-box">🔥 ESPACIO PUBLICIDAD - Ganancia por vista (AdSense) 🔥</div>
+
 <div class="logo">JCV-AI</div>
 <div class="arco">
-<h3 style="color:#FFD700;letter-spacing:4px">Music & Videos</h3>
-<button class="btn">🎤<br>Grabador</button>
-<button class="btn">✏️<br>Letra</button>
-<button class="btn">🎵<br>Género</button>
-<button class="btn">✨<br>Crear</button>
-<button class="btn">▶️<br>Video</button>
-<p style="color:#555;margin-top:30px;font-size:13px">Plataforma oficial - Sin canciones - Lista para monetizar</p>
+<h3 style="color:#FFD700;letter-spacing:4px;margin:5px">Music & Videos</h3>
+<p id="status" style="font-size:13px;color:#00F5FF">Listo para crear</p>
+
+<button class="btn" onclick="grabar()">🎤<br>Grabador</button>
+<button class="btn" onclick="letra()">✏️<br>Letra</button>
+<button class="btn" onclick="genero()">🎵<br>Género</button>
+<button class="btn" onclick="crear()" style="border:2px solid #FFD700">✨<br>Crear</button>
+<button class="btn" onclick="video()">▶️<br>Video</button>
+
+<div style="margin-top:20px">
+<button onclick="document.getElementById('payModal').style.display='flex'" style="background:#FFD700;color:black;border:none;padding:10px 20px;border-radius:10px;font-weight:bold">💎 Desbloquear PRO - $99/mes</button>
 </div>
-</body>
-  </html>
+<p style="color:#555;font-size:11px;margin-top:15px">Owner: José C Valadez D - Plataforma Oficial Blindada</p>
+</div>
+
+<div class="ad-box">🔥 SEGUNDO ESPACIO PUBLICIDAD - Doble ganancia 🔥</div>
+
+<!-- MODAL DE PAGO -->
+<div id="payModal" onclick="this.style.display='none'">
+<div class="card" onclick="event.stopPropagation()">
+<h2 style="color:#FFD700">JCV-AI PRO</h2>
+<p style="font-size:12px;color:#aaa">Desbloquea creación ilimitada + sin anuncios</p>
+<div style="border:1px solid #333;border-radius:12px;padding:10px;margin:10px 0">
+<p>MENSUAL</p><div class="price">$99 MXN</div>
+<button class="btn" style="width:100%" onclick="pagar('mensual')">Pagar con PayPal / Tarjeta</button>
+</div>
+<div style="border:1px solid #FFD700;border-radius:12px;padding:10px;margin:10px 0;background:rgba(255,215,0,0.1)">
+<p>ANUAL - AHORRA 33% 🔥</p><div class="price">$799 MXN</div>
+<button class="btn" style="width:100%;background:#FFD700;color:black" onclick="pagar('anual')">Pagar Anual</button>
+</div>
+<button onclick="document.getElementById('payModal').style.display='none'" style="background:none;border:none;color:#666;margin-top:10px">Cerrar</button>
+</div>
+</div>
+
+<script>
+// JCV-AI CORE - Firma Dueño
+const OWNER="José C Valadez D"; let letraTxt=""; let genTxt="Reggaeton"; let audioBlob=null;
+
+function grabar(){
+  document.getElementById('status').innerText="🎤 Grabando 5 seg...";
+  navigator.mediaDevices.getUserMedia({audio:true}).then(s=>{
+    const r=new MediaRecorder(s); let d=[];
+    r.ondataavailable=e=>d.push(e.data);
+    r.onstop=()=>{audioBlob=new Blob(d); document.getElementById('status').innerText="✅ Voz capturada lista";};
+    r.start(); setTimeout(()=>r.stop(),5000);
+  }).catch(()=>alert("Permite microfono"));
+}
+function letra(){
+  let l=prompt("Pega tu letra:","Yo soy el arquitecto de JCV-AI");
+  if(l){letraTxt=l; document.getElementById('status').innerText="✏️ Letra guardada: "+l.substring(0,20)+"...";}
+}
+function genero(){
+  let g=prompt("Género: reggaeton, trap, banda, cumbia, pop","Reggaeton");
+  if(g){genTxt=g; document.getElementById('status').innerText="🎵 Género: "+g;}
+}
+function crear(){
+  if(!letraTxt){alert("Primero pon LETRA"); return;}
+  // SIMULACION DE PAGO - Aqui checamos si es PRO
+  let esPro = localStorage.getItem('jcv_pro')==='1';
+  if(!esPro && !confirm("MODO GRATIS: Con anuncio y marca de agua. ¿Continuar? (Paga PRO para quitarlo)")) return;
+  
+  document.getElementById('status').innerText="✨ Creando "+genTxt+" con IA JCV-AI...";
+  setTimeout(()=>{
+    document.getElementById('status').innerHTML="✅ ¡Canción creada!<br><small>"+letraTxt+" ["+genTxt+"]</small><br><audio controls style='margin-top:10px;width:90%'></audio>";
+    alert("¡Dueño, aquí conectaremos tu backend de IA real! Por ahora simulado. Tu voz y letra guardadas para procesar.");
+  },2000);
+}
+function video(){ alert("🎬 Módulo Video JCV-AI: Aquí generará video con tu canción. (En construcción PRO)"); }
+function pagar(tipo){
+  // AQUI VA TU LINK DE PAYPAL O STRIPE
+  let linkPaypal = "https://www.paypal.com/paypalme/TUUSUARIO/"+ (tipo==='mensual'?99:799);
+  alert("Redirigiendo a pago "+tipo.toUpperCase()+" - Luego te daré acceso PRO automático");
+  // Simulación de pago exitoso para prueba:
+  localStorage.setItem('jcv_pro','1');
+  document.getElementById('payModal').style.display='none';
+  document.getElementById('status').innerText="💎 ¡PRO ACTIVADO! Gracias Dueño "+OWNER;
+  window.open(linkPaypal,"_blank");
+}
+console.log("JCV-AI AntiClon Activo - Owner: "+OWNER);
+</script>
+</body></html>
